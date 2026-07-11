@@ -132,31 +132,13 @@ EXT4: 4/2560 blocks used | Journal=True | Fragmentation=0.00% | Largest free run
 streamlit run app.py
 ```
 
-Opens a web browser at `http://localhost:8501` with:
+Opens a web browser at `http://localhost:8501` with a clean single-page layout:
 
-| Tab | Description |
-|---|---|
-| **Home** | Project overview and architecture diagram |
-| **Simulator Info** | File system descriptions, metrics measured, and caveats |
-| **Algorithm / Input** | Configure test parameters; optionally plug in your own project module |
-| **Statistics** | Full tabular results — avg/min/max read-write times, checksum |
-| **Graphs** | Interactive Plotly charts (grouped bar, scatter, write/read ratio) |
-| **Summary** | Automated conclusion identifying the best-performing file system |
-
-**Plugging in your own code:**
-If your project has benchmark functions, paste the full path to your `.py` file in the *Algorithm / Input* tab. The dashboard expects one of these signatures:
-
-```python
-# Option 1 — per file system
-def run_test(fs_name: str, size_bytes: int, iterations: int) -> dict:
-    # Must return: fs, size_bytes, iterations, avg_write_s, avg_read_s,
-    #              min_write_s, min_read_s, max_write_s, max_read_s, checksum
-    ...
-
-# Option 2 — all at once
-def run_all_tests(fs_list: list, size_bytes: int, iterations: int) -> list[dict]:
-    return [run_test(fs, size_bytes, iterations) for fs in fs_list]
-```
+1. **Sidebar** — select file systems, file size, iterations, then click **▶ Run Benchmark**
+2. **Metric cards** — at-a-glance avg write/read times per FS
+3. **Charts** — grouped bar chart (read vs write) and scatter plot (write spread) side-by-side
+4. **Results table** — expandable full data table
+5. **Summary** — auto-generated conclusion identifying the best performer
 
 ---
 
@@ -248,7 +230,7 @@ FS_MAP = {
 | Streamlit page is blank | Hard-refresh the browser (`Ctrl+Shift+R`) or restart with `streamlit run app.py` |
 | `pytest: command not found` | Run `pip install pytest` |
 | Slow tests on Windows | Your antivirus may be scanning temp files; add the project folder to exclusions |
-| Dashboard shows "No results yet" | Go to **Algorithm / Input** tab and click **Run Tests** first |
+| Dashboard shows landing message | Click **▶ Run Benchmark** in the sidebar |
 
 ---
 
@@ -263,8 +245,8 @@ FS_MAP = {
 | Internal vs external fragmentation | `utils/fragmentation.py` |
 | Abstract Base Classes in Python (`abc`) | `base_filesystem.py` pattern |
 | `time.perf_counter()` for benchmarking | `utils/performance_metrics.py` |
-| Streamlit `session_state`, tabs | `app.py` dashboard |
-| Plotly Express grouped bar charts | `app.py` graphs |
+| Streamlit `session_state`, sidebar layout | `app.py` dashboard |
+| Plotly Express grouped bar / scatter charts | `app.py` graphs |
 
 **Recommended reading:** *Operating System Concepts* by Silberschatz et al. (Dinosaur Book) — Chapters 13–14 (File System Interface & Implementation).
 
