@@ -1,0 +1,28 @@
+# Handle line endings automatically for all text files
+* text=auto
+
+# Explicitly set Python files to LF
+*.py text eol=lf
+
+# Explicitly set markdown and text files to LF
+*.md text eol=lf
+
+# Explicitly set config/requirements to LF
+*.txt text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Windows batch scripts use CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files — no conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.bin binary
